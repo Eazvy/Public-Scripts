@@ -389,39 +389,32 @@ if branch == "FFI" then
    -- SHA256 implementation for "LuaJIT with FFI" branch
 
    function sha256_feed_64(H, str, offs, size)
-        -- offs >= 0, size >= 0, size is multiple of 64
-      local W, K = {}, sha2_K_hi
+      -- offs >= 0, size >= 0, size is multiple of 64
+      local W, K = common_W_FFI_int32, sha2_K_hi
       local str_len = #str
-      local str_bytes = {string.byte(str, offs, offs + size - 1)}
       for pos = offs, offs + size - 1, 64 do
         for j = 0, 15 do
-          local a = pos + j*4
-          W[j] = bit.bor(bit.lshift(str_bytes[a+1], 24), bit.lshift(str_bytes[a+2], 16), bit.lshift(str_bytes[a+3], 8), str_bytes[a+4])
+          local a = str:sub(pos + j*4, pos + j*4):byte()
+          local b = str:sub(pos + j*4 + 1, pos + j*4 + 1):byte()
+          local c = str:sub(pos + j*4 + 2, pos + j*4 + 2):byte()
+          local d = str:sub(pos + j*4 + 3, pos + j*4 + 3):byte()
+          W[j] = OR(SHL(a, 24), SHL(b, 16), SHL(c, 8), d)
         end
         for j = 16, 63 do
           local a, b = W[j-15], W[j-2]
-          W[j] = bit.band(bit.bxor(bit.ror(a, 7), bit.ror(a, 18), bit.rshift(a, 3)), 0xFFFFFFFF) +
-                 bit.band(bit.bxor(bit.ror(b, 17), bit.ror(b, 19), bit.rshift(b, 10)), 0xFFFFFFFF) +
-                 W[j-7] + W[j-16]
+          W[j] = NORM( XOR(ROR(a, 7), ROR(a, 18), SHR(a, 3)) + XOR(ROR(b, 17), ROR(b, 19), SHR(b, 10)) + W[j-7] + W[j-16] )
         end
         local a, b, c, d, e, f, g, h = H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8]
         for j = 0, 63 do
-          local T1 = bit.band(bit.bxor(bit.ror(e, 6), bit.ror(e, 11), bit.ror(e, 25)), 0xFFFFFFFF) +
-                     bit.band(bit.bxor(bit.band(e, f), bit.band(bit.bnot(e), g)), 0xFFFFFFFF) +
-                     K[j+1] + W[j]
-          local T2 = bit.band(bit.bxor(bit.ror(a, 2), bit.ror(a, 13), bit.ror(a, 22)), 0xFFFFFFFF) +
-                     bit.band(bit.bxor(bit.band(a, b), bit.band(a, c), bit.band(b, c)), 0xFFFFFFFF)
-          h, g, f, e, d, c, b, a = g, f, e, bit.band(d + T1, 0xFFFFFFFF), c, b, a, bit.band(T1 + T2, 0xFFFFFFFF)
+          local T1 = NORM( h + XOR(ROR(e, 6), ROR(e, 11), ROR(e, 25)) + XOR(AND(e, f), AND(NOT(e), g)) + K[j+1] + W[j] )
+          local T2 = NORM( XOR(ROR(a, 2), ROR(a, 13), ROR(a, 22)) + XOR(AND(a, b), AND(a, c), AND(b, c)) )
+          h, g, f, e, d, c, b, a = g, f, e, NORM(d + T1), c, b, a, NORM(T1 + T2)
         end
         H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8] =
-          bit.band(H[1] + a, 0xFFFFFFFF), bit.band(H[2] + b, 0xFFFFFFFF),
-          bit.band(H[3] + c, 0xFFFFFFFF), bit.band(H[4] + d, 0xFFFFFFFF),
-          bit.band(H[5] + e, 0xFFFFFFFF), bit.band(H[6] + f, 0xFFFFFFFF),
-          bit.band(H[7] + g, 0xFFFFFFFF), bit.band(H[8] + h, 0xFFFFFFFF)
-      end
+          NORM(H[1] + a), NORM(H[2] + b), NORM(H[3] + c), NORM(H[4] + d),
+          NORM(H[5] + e), NORM(H[6] + f), NORM(H[7] + g), NORM(H[8] + h)
+        end
     end
-
-
 
 
 
@@ -1061,36 +1054,31 @@ if branch == "LJ" then
    -- SHA256 implementation for "LuaJIT without FFI" branch
 
    function sha256_feed_64(H, str, offs, size)
-        -- offs >= 0, size >= 0, size is multiple of 64
-      local W, K = {}, sha2_K_hi
+      -- offs >= 0, size >= 0, size is multiple of 64
+      local W, K = common_W_FFI_int32, sha2_K_hi
       local str_len = #str
-      local str_bytes = {string.byte(str, offs, offs + size - 1)}
       for pos = offs, offs + size - 1, 64 do
         for j = 0, 15 do
-          local a = pos + j*4
-          W[j] = bit.bor(bit.lshift(str_bytes[a+1], 24), bit.lshift(str_bytes[a+2], 16), bit.lshift(str_bytes[a+3], 8), str_bytes[a+4])
+          local a = str:sub(pos + j*4, pos + j*4):byte()
+          local b = str:sub(pos + j*4 + 1, pos + j*4 + 1):byte()
+          local c = str:sub(pos + j*4 + 2, pos + j*4 + 2):byte()
+          local d = str:sub(pos + j*4 + 3, pos + j*4 + 3):byte()
+          W[j] = OR(SHL(a, 24), SHL(b, 16), SHL(c, 8), d)
         end
         for j = 16, 63 do
           local a, b = W[j-15], W[j-2]
-          W[j] = bit.band(bit.bxor(bit.ror(a, 7), bit.ror(a, 18), bit.rshift(a, 3)), 0xFFFFFFFF) +
-                 bit.band(bit.bxor(bit.ror(b, 17), bit.ror(b, 19), bit.rshift(b, 10)), 0xFFFFFFFF) +
-                 W[j-7] + W[j-16]
+          W[j] = NORM( XOR(ROR(a, 7), ROR(a, 18), SHR(a, 3)) + XOR(ROR(b, 17), ROR(b, 19), SHR(b, 10)) + W[j-7] + W[j-16] )
         end
         local a, b, c, d, e, f, g, h = H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8]
         for j = 0, 63 do
-          local T1 = bit.band(bit.bxor(bit.ror(e, 6), bit.ror(e, 11), bit.ror(e, 25)), 0xFFFFFFFF) +
-                     bit.band(bit.bxor(bit.band(e, f), bit.band(bit.bnot(e), g)), 0xFFFFFFFF) +
-                     K[j+1] + W[j]
-          local T2 = bit.band(bit.bxor(bit.ror(a, 2), bit.ror(a, 13), bit.ror(a, 22)), 0xFFFFFFFF) +
-                     bit.band(bit.bxor(bit.band(a, b), bit.band(a, c), bit.band(b, c)), 0xFFFFFFFF)
-          h, g, f, e, d, c, b, a = g, f, e, bit.band(d + T1, 0xFFFFFFFF), c, b, a, bit.band(T1 + T2, 0xFFFFFFFF)
+          local T1 = NORM( h + XOR(ROR(e, 6), ROR(e, 11), ROR(e, 25)) + XOR(AND(e, f), AND(NOT(e), g)) + K[j+1] + W[j] )
+          local T2 = NORM( XOR(ROR(a, 2), ROR(a, 13), ROR(a, 22)) + XOR(AND(a, b), AND(a, c), AND(b, c)) )
+          h, g, f, e, d, c, b, a = g, f, e, NORM(d + T1), c, b, a, NORM(T1 + T2)
         end
         H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8] =
-          bit.band(H[1] + a, 0xFFFFFFFF), bit.band(H[2] + b, 0xFFFFFFFF),
-          bit.band(H[3] + c, 0xFFFFFFFF), bit.band(H[4] + d, 0xFFFFFFFF),
-          bit.band(H[5] + e, 0xFFFFFFFF), bit.band(H[6] + f, 0xFFFFFFFF),
-          bit.band(H[7] + g, 0xFFFFFFFF), bit.band(H[8] + h, 0xFFFFFFFF)
-      end
+          NORM(H[1] + a), NORM(H[2] + b), NORM(H[3] + c), NORM(H[4] + d),
+          NORM(H[5] + e), NORM(H[6] + f), NORM(H[7] + g), NORM(H[8] + h)
+        end
     end
 
    local function ADD64_4(a_lo, a_hi, b_lo, b_hi, c_lo, c_hi, d_lo, d_hi)
@@ -2267,45 +2255,10 @@ if branch == "INT32" then
         local result = ""
         for i = 1, 8 do
             local hexVal = bit.band(bit.rshift(x, (8-i)*4), 0xf)
-            local hexChar = ""
-            if hexVal == 0 then
-                hexChar = "0"
-            elseif hexVal == 1 then
-                hexChar = "1"
-            elseif hexVal == 2 then
-                hexChar = "2"
-            elseif hexVal == 3 then
-                hexChar = "3"
-            elseif hexVal == 4 then
-                hexChar = "4"
-            elseif hexVal == 5 then
-                hexChar = "5"
-            elseif hexVal == 6 then
-                hexChar = "6"
-            elseif hexVal == 7 then
-                hexChar = "7"
-            elseif hexVal == 8 then
-                hexChar = "8"
-            elseif hexVal == 9 then
-                hexChar = "9"
-            elseif hexVal == 10 then
-                hexChar = "a"
-            elseif hexVal == 11 then
-                hexChar = "b"
-            elseif hexVal == 12 then
-                hexChar = "c"
-            elseif hexVal == 13 then
-                hexChar = "d"
-            elseif hexVal == 14 then
-                hexChar = "e"
-            elseif hexVal == 15 then
-                hexChar = "f"
-            end
-            result = result .. hexChar
+            result = result .. string.sub(hexChars, hexVal+1, hexVal+1)
         end
         return result
     end
-
 
 
 
@@ -3221,37 +3174,45 @@ if branch == "LIB32" or branch == "EMUL" then
    -- implementation for Lua 5.1/5.2 (with or without bitwise library available)
 
    function sha256_feed_64(H, str, offs, size)
-        -- offs >= 0, size >= 0, size is multiple of 64
-      local W, K = {}, sha2_K_hi
-      local str_len = #str
-      local str_bytes = {string.byte(str, offs, offs + size - 1)}
+      -- offs >= 0, size >= 0, size is multiple of 64
+      local W, K = common_W, sha2_K_hi
+      local h1, h2, h3, h4, h5, h6, h7, h8 = H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8]
       for pos = offs, offs + size - 1, 64 do
-        for j = 0, 15 do
-          local a = pos + j*4
-          W[j] = bit.bor(bit.lshift(str_bytes[a+1], 24), bit.lshift(str_bytes[a+2], 16), bit.lshift(str_bytes[a+3], 8), str_bytes[a+4])
-        end
-        for j = 16, 63 do
-          local a, b = W[j-15], W[j-2]
-          W[j] = bit.band(bit.bxor(bit.ror(a, 7), bit.ror(a, 18), bit.rshift(a, 3)), 0xFFFFFFFF) +
-                 bit.band(bit.bxor(bit.ror(b, 17), bit.ror(b, 19), bit.rshift(b, 10)), 0xFFFFFFFF) +
-                 W[j-7] + W[j-16]
-        end
-        local a, b, c, d, e, f, g, h = H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8]
-        for j = 0, 63 do
-          local T1 = bit.band(bit.bxor(bit.ror(e, 6), bit.ror(e, 11), bit.ror(e, 25)), 0xFFFFFFFF) +
-                     bit.band(bit.bxor(bit.band(e, f), bit.band(bit.bnot(e), g)), 0xFFFFFFFF) +
-                     K[j+1] + W[j]
-          local T2 = bit.band(bit.bxor(bit.ror(a, 2), bit.ror(a, 13), bit.ror(a, 22)), 0xFFFFFFFF) +
-                     bit.band(bit.bxor(bit.band(a, b), bit.band(a, c), bit.band(b, c)), 0xFFFFFFFF)
-          h, g, f, e, d, c, b, a = g, f, e, bit.band(d + T1, 0xFFFFFFFF), c, b, a, bit.band(T1 + T2, 0xFFFFFFFF)
-        end
-        H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8] =
-          bit.band(H[1] + a, 0xFFFFFFFF), bit.band(H[2] + b, 0xFFFFFFFF),
-          bit.band(H[3] + c, 0xFFFFFFFF), bit.band(H[4] + d, 0xFFFFFFFF),
-          bit.band(H[5] + e, 0xFFFFFFFF), bit.band(H[6] + f, 0xFFFFFFFF),
-          bit.band(H[7] + g, 0xFFFFFFFF), bit.band(H[8] + h, 0xFFFFFFFF)
+         for j = 1, 16 do
+            pos = pos + 4
+            local a, b, c, d = byte(str, pos - 3, pos)
+            W[j] = ((a * 256 + b) * 256 + c) * 256 + d
+         end
+         for j = 17, 64 do
+            local a, b = W[j-15], W[j-2]
+            local a7, a18, b17, b19 = a / 2^7, a / 2^18, b / 2^17, b / 2^19
+            W[j] = (XOR(a7 % 1 * (2^32 - 1) + a7, a18 % 1 * (2^32 - 1) + a18, (a - a % 2^3) / 2^3) + W[j-16] + W[j-7]
+               + XOR(b17 % 1 * (2^32 - 1) + b17, b19 % 1 * (2^32 - 1) + b19, (b - b % 2^10) / 2^10)) % 2^32
+         end
+         local a, b, c, d, e, f, g, h = h1, h2, h3, h4, h5, h6, h7, h8
+         for j = 1, 64 do
+            e = e % 2^32
+            local e6, e11, e7 = e / 2^6, e / 2^11, e * 2^7
+            local e7_lo = e7 % 2^32
+            local z = AND(e, f) + AND(-1-e, g) + h + K[j] + W[j]
+               + XOR(e6 % 1 * (2^32 - 1) + e6, e11 % 1 * (2^32 - 1) + e11, e7_lo + (e7 - e7_lo) / 2^32)
+            h = g
+            g = f
+            f = e
+            e = z + d
+            d = c
+            c = b
+            b = a % 2^32
+            local b2, b13, b10 = b / 2^2, b / 2^13, b * 2^10
+            local b10_lo = b10 % 2^32
+            a = z + AND(d, c) + AND(b, XOR(d, c)) +
+               XOR(b2 % 1 * (2^32 - 1) + b2, b13 % 1 * (2^32 - 1) + b13, b10_lo + (b10 - b10_lo) / 2^32)
+         end
+         h1, h2, h3, h4 = (a + h1) % 2^32, (b + h2) % 2^32, (c + h3) % 2^32, (d + h4) % 2^32
+         h5, h6, h7, h8 = (e + h5) % 2^32, (f + h6) % 2^32, (g + h7) % 2^32, (h + h8) % 2^32
       end
-    end
+      H[1], H[2], H[3], H[4], H[5], H[6], H[7], H[8] = h1, h2, h3, h4, h5, h6, h7, h8
+   end
 
 
    function sha512_feed_128(H_lo, H_hi, str, offs, size)
