@@ -310,16 +310,16 @@ elseif branch == "EMUL" then
 
 end
 
-HEX = HEX or function (x) 
-   local hex_chars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'}
-   local result = ""
-   for i = 1, 8 do
-      local nibble = bit.band(bit.rshift(x, (i-1)*4), 0xf) + 1
-      result = hex_chars[nibble]..result
-   end
-   return result
-end
-
+HEX = HEX
+   or
+      pcall(string_format, "%x", 2^31) and
+      function (x)  -- returns string of 8 lowercase hexadecimal digits
+         return string_format("%08x", x % 4294967296)
+      end
+   or
+      function (x)  -- for OpenWrt's dialect of Lua
+         return string_format("%08x", (x + 2^31) % 2^32 - 2^31)
+      end
 
 local function XORA5(x, y)
    return XOR(x, y or 0xA5A5A5A5) % 4294967296
@@ -1547,16 +1547,8 @@ if branch == "INT64" then
       local string_format, string_unpack = string.format, string.unpack
 
       local function HEX64(x)
-         local hex_digits = "0123456789abcdef"
-         local s = ""
-         for i = 1, 16 do
-           local byte = bit.band(x, 0xff)
-           s = hex_digits:sub(byte+1, byte+1) .. s
-           x = bit.rshift(x, 8)
-         end
-         return s
-       end
-       
+         return string_format("%016x", x)
+      end
 
       local function XORA5(x, y)
          return x ~ (y or 0xa5a5a5a5a5a5a5a5)
@@ -4741,19 +4733,13 @@ do
       ))
    end
 
-   local hex_digits = "0123456789abcdef"
-
-   local function bin_to_hex(binary_string)
-      local hex_string = ""
-      for i = 1, #binary_string do
-         local b = string.byte(binary_string, i)
-         local lsn = hex_digits:sub(b % 16 + 1, b % 16 + 1)
-         local msn = hex_digits:sub(math.floor(b / 16) + 1, math.floor(b / 16) + 1)
-         hex_string = hex_string .. msn .. lsn
-      end
-      return hex_string
+   function bin_to_hex(binary_string)
+      return (gsub(binary_string, ".",
+         function (c)
+            return string_format("%02x", byte(c))
+         end
+      ))
    end
-
 
    local base64_symbols = {
       ['+'] = 62, ['-'] = 62,  [62] = '+',
