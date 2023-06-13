@@ -5590,6 +5590,7 @@ local sha = {
    -- SHA-2 hash functions:
    sha224     = function (message)                       return sha256ext(224, message)                                           end, -- SHA-224
    sha256     = function (message)                       return sha256ext(256, message)                                           end, -- SHA-256
+   sha452     = function (message)                       return keccak((1600 - 2 * 512) / 8, 512 / 8, false, message)             end, -- SHA3-452
    sha512_224 = function (message)                       return sha512ext(224, message)                                           end, -- SHA-512/224
    sha512_256 = function (message)                       return sha512ext(256, message)                                           end, -- SHA-512/256
    sha384     = function (message)                       return sha512ext(384, message)                                           end, -- SHA-384
