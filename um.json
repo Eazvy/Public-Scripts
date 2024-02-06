@@ -1,0 +1,159 @@
+{
+    "name": "Vampire (Anime)",
+    "version": "1.0",
+    "description": "rawr :3",
+    "authors": [
+      {
+        "name": "omaw",
+        "id": "1155026301791514655"
+      }
+    ],
+    "theme_color_map": {
+      "KEYBOARD": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "HEADER_PRIMARY": [
+        "#FBFBFB",
+        "#FFFFFF"
+      ],
+      "HEADER_SECONDARY": [
+        "#B6B6B6",
+        "#FFFFFF"
+      ],
+      "TEXT_NORMAL": [
+        "#FBFBFB",
+        "#FFFFFF"
+      ],
+      "TEXT_MUTED": [
+        "#B6B6B6",
+        "#FFFFFF"
+      ],
+      "INTERACTIVE_NORMAL": [
+        "#8f150a",
+        "#FFFFFF"
+      ],
+      "INTERACTIVE_HOVER": [
+        "#6b0000",
+        "#FFFFFF"
+      ],
+      "INTERACTIVE_ACTIVE": [
+        "#d62515",
+        "#FFFFFF"
+      ],
+      "INTERACTIVE_MUTED": [
+        "#747474",
+        "#FFFFFF"
+      ],
+      "BACKGROUND_PRIMARY": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "BACKGROUND_SECONDARY": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "BACKGROUND_SECONDARY_ALT": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "BACKGROUND_TERTIARY": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "BACKGROUND_ACCENT": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "BACKGROUND_FLOATING": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "BACKGROUND_MOBILE_PRIMARY": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "BACKGROUND_MOBILE_SECONDARY": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "BACKGROUND_NESTED_FLOATING": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "BACKGROUND_MESSAGE_HOVER": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "BACKGROUND_MODIFIER_HOVER": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "BACKGROUND_MODIFIER_ACTIVE": [
+        "#0c0c0c",
+        "#542ca3"
+      ],
+      "BACKGROUND_MODIFIER_SELECTED": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "BACKGROUND_MODIFIER_ACCENT": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "SCROLLBAR_THIN_THUMB": [
+        "#0c0c0c",
+        "#FFFFFF"
+      ],
+      "SCROLLBAR_THIN_TRACK": [
+        "transparent",
+        "#FFFFFF"
+      ],
+      "SCROLLBAR_AUTO_THUMB": [
+        "#292929",
+        "#FFFFFF"
+      ],
+      "SCROLLBAR_AUTO_TRACK": [
+        "rgba(0, 0, 0, 0.1)",
+        "#FFFFFF"
+      ],
+      "CHANNELTEXTAREA_BACKGROUND": [
+        "transparent",
+        "#FFFFFF"
+      ],
+      "CHANNELS_DEFAULT": [
+        "#ed2828",
+        "#FFFFFF"
+      ],
+      "TEXT_LINK": [
+        "#d62515",
+        "#6c56c4"
+      ],
+      "CHANNEL_ICON": [
+        "#d62515",
+        "#6c56c4"
+      ]
+    },
+    "colours": {
+      "PRIMARY_DARK": "#171717",
+      "PRIMARY_DARK_100": "#ffffff",
+      "PRIMARY_DARK_200": "#ffffff",
+      "PRIMARY_DARK_300": "#B6B6B6",
+      "PRIMARY_DARK_360": "#C8C8C8",
+      "PRIMARY_DARK_400": "#C8C8C8",
+      "PRIMARY_DARK_500": "#0c0c0c",
+      "PRIMARY_DARK_600": "#171717",
+      "PRIMARY_DARK_630": "#171717",
+      "PRIMARY_DARK_700": "#171717",
+      "PRIMARY_DARK_800": "#171717",
+      "PRIMARY_DARK_900": "#171717"
+    },
+    "unsafe_colors": {
+      "CHAT_GREY": "#171717"
+    },
+    "background": {
+      "blur": 0.1,
+      "url": "https://cdn.discordapp.com/attachments/1136317741092057249/1136333438148947988/SIX_29272BA9-9171-4AEB-8181-3907154E6872.png",
+      "alpha": 1.0
+    }
+  }
