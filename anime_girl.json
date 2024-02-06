@@ -11,15 +11,15 @@
     "theme_color_map": {
       "KEYBOARD": [
         "#1a1926",
-        "#1a1926"
+        "#FFFFFF"
       ],
       "HEADER_PRIMARY": [
-        "#1a1926",
-        "#1a1926"
+        "#FBFBFB",
+        "#FFFFFF"
       ],
       "HEADER_SECONDARY": [
-        "#1a1926",
-        "#1a1926"
+        "#B6B6B6",
+        "#FFFFFF"
       ],
       "TEXT_NORMAL": [
         "#FBFBFB",
@@ -38,7 +38,7 @@
         "#FFFFFF"
       ],
       "INTERACTIVE_ACTIVE": [
-        "#6b0000",
+        "#d62515",
         "#FFFFFF"
       ],
       "INTERACTIVE_MUTED": [
@@ -126,8 +126,8 @@
         "#FFFFFF"
       ],
       "TEXT_LINK": [
-        "#cc0000",
-        "#cc0000"
+        "#d62515",
+        "#6c56c4"
       ],
       "CHANNEL_ICON": [
         "#d62515",
