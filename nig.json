@@ -38,7 +38,7 @@
         "#0c0c0c"
       ],
       "INTERACTIVE_ACTIVE": [
-        "#383434",
+        "#453c3c",
         "#0c0c0c"
       ],
       "INTERACTIVE_MUTED": [
@@ -110,7 +110,7 @@
         "#0c0c0c"
       ],
       "SCROLLBAR_AUTO_THUMB": [
-        "#383434",
+        "#0c0c0c",
         "#0c0c0c"
       ],
       "SCROLLBAR_AUTO_TRACK": [
