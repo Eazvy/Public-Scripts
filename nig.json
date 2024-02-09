@@ -1,7 +1,7 @@
 {
     "name": "Dark-Vamp 2.0",
     "version": "2.0",
-    "description": "Extremely Dark + Red Anime theme re-designed by omaw",
+    "description": "Extremely Dark + Red Anime Theme re-designed by omaw",
     "authors": [
       {
         "name": "Eazvy",
@@ -30,7 +30,7 @@
         "#0c0c0c"
       ],
       "INTERACTIVE_NORMAL": [
-        "#0c0c0c",
+        "#8f150a",
         "#0c0c0c"
       ],
       "INTERACTIVE_HOVER": [
@@ -57,7 +57,15 @@
         "#0c0c0c",
         "#0c0c0c"
       ],
+      "REDESIGN_BUTTON_SECONDARY_BACKGROUND": [
+        "#3b0602",
+        "#3b0602"
+      ],
       "BACKGROUND_TERTIARY": [
+        "#0c0c0c",
+        "#0c0c0c"
+      ],
+      "BG_BASE_SECONDARY": [ 
         "#0c0c0c",
         "#0c0c0c"
       ],
@@ -120,9 +128,6 @@
       "CHANNELTEXTAREA_BACKGROUND": [
         "#0c0c0c",
         "#0c0c0c"
-      ],
-      "CHANNEL_TEXT_AREA_PLACEHOLDER": [
-       "message"
       ],
       "CHANNELS_DEFAULT": [
         "#ed2828",
