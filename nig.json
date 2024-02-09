@@ -121,9 +121,6 @@
         "#0c0c0c",
         "#0c0c0c"
       ],
-      "CHANNEL_TEXT_AREA_PLACEHOLDER": [
-        "message"
-      ],
       "CHANNEL_TEXT_AREA_PLACEHOLDER":"message",
       "CHANNELS_DEFAULT": [
         "#ed2828",
