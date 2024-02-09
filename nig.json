@@ -1,10 +1,10 @@
 {
-    "name": "Vampire (Anime)",
-    "version": "1.0",
-    "description": "rawr :3",
+    "name": "Dark-Vamp 2.0",
+    "version": "2.0",
+    "description": "Extremely Dark + Red Anime theme re-designed by omaw",
     "authors": [
       {
-        "name": "omaw",
+        "name": "Eazvy",
         "id": "1155026301791514655"
       }
     ],
@@ -30,7 +30,7 @@
         "#0c0c0c"
       ],
       "INTERACTIVE_NORMAL": [
-        "#8f150a",
+        "#0c0c0c",
         "#0c0c0c"
       ],
       "INTERACTIVE_HOVER": [
@@ -38,7 +38,7 @@
         "#0c0c0c"
       ],
       "INTERACTIVE_ACTIVE": [
-        "#292929",
+        "#383434",
         "#0c0c0c"
       ],
       "INTERACTIVE_MUTED": [
@@ -110,7 +110,7 @@
         "#0c0c0c"
       ],
       "SCROLLBAR_AUTO_THUMB": [
-        "#292929",
+        "#383434",
         "#0c0c0c"
       ],
       "SCROLLBAR_AUTO_TRACK": [
@@ -120,6 +120,9 @@
       "CHANNELTEXTAREA_BACKGROUND": [
         "#0c0c0c",
         "#0c0c0c"
+      ],
+      "CHANNEL_TEXT_AREA_PLACEHOLDER": [
+       "message"
       ],
       "CHANNELS_DEFAULT": [
         "#ed2828",
