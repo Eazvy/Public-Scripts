@@ -38,7 +38,7 @@
         "#0c0c0c"
       ],
       "INTERACTIVE_ACTIVE": [
-        "#d62515",
+        "#631616",
         "#0c0c0c"
       ],
       "INTERACTIVE_MUTED": [
@@ -121,6 +121,10 @@
         "#0c0c0c",
         "#0c0c0c"
       ],
+      "CHANNEL_TEXT_AREA_PLACEHOLDER": [
+        "message"
+      ],
+      "CHANNEL_TEXT_AREA_PLACEHOLDER":"message",
       "CHANNELS_DEFAULT": [
         "#ed2828",
         "#0a4773"
