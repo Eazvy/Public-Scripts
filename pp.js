@@ -69,8 +69,8 @@ const i = g("freemoji"),
                         let replacementUrl;
                         if (e.url.includes(".gif")) {
                             replacementUrl = e.url.replace(/size=\d+/, "size=48");
-                        } else if (e.url.includes(".png")) {
-                            replacementUrl = e.url.replace("webp", "png").replace(/size=\d+/, "size=48");
+                        } else if (e.url.includes(".png") || e.url.includes(".webp")) {
+                            replacementUrl = e.url.replace(/\.(png|webp)/, ".png").replace(/size=\d+/, "size=48");
                         }
                         if (replacementUrl) {
                             n.content = n.content.replace(`<${e.animated ? "a" : ""}:${(d = e.originalName) != null ? d : e.name}:${e.id}>`, replacementUrl);
@@ -79,7 +79,7 @@ const i = g("freemoji"),
                     }
                 });
                 n.validNonShortcutEmojis = n.validNonShortcutEmojis.filter(e => e);
-            }), i.instead(t.default, "canUseEmojisEverywhere", () => o), i.instead(t.default, "canUseAnimatedEmojis", () => o)            
+            }), i.instead(t.default, "canUseEmojisEverywhere", () => o), i.instead(t.default, "canUseAnimatedEmojis", () => o)
         },
         onStop() {
             i.unpatchAll()
