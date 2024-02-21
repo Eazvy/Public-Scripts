@@ -65,8 +65,10 @@ const i = g("freemoji"),
                 const w = E(s);
                 n.validNonShortcutEmojis.forEach((e, c) => {
                     var d;
-                    if ((e.guildId !== w.guild_id || e.animated) && e.url) {
-                        n.content = n.content.replace(`<${e.animated ? "a" : ""}:${(d = e.originalName) != null ? d : e.name}:${e.id}>`, `[${(d = e.originalName) != null ? d : e.name}](${e.url.replace("webp", "png").replace(/size=\d+/, "size=48")})`);
+                    if (e.guildId !== w.guild_id) {
+                        const emojiUrl = e.url.replace("webp", "png").replace(/size=\d+/, "size=48");
+                        const customUrl = `${emojiUrl}&name=${encodeURIComponent((d = e.originalName) != null ? d : e.name)}`;
+                        n.content = n.content.replace(`<${e.animated ? "a" : ""}:${(d = e.originalName) != null ? d : e.name}:${e.id}>`, customUrl);
                         delete n.validNonShortcutEmojis[c];
                     }
                 });
