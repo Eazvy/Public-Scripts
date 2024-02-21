@@ -23,7 +23,7 @@ function g(o) {
     return window.enmity.patcher.create(o)
 }
 var h = "Freemoji",
-    f = "Rewritten version, instead of sending full URL it'll send a hyper link with name of emoji.",
+    f = "Send external emoji without Nitro as image links",
     v = "2.0.2",
     S = "#f9a418",
     b = [{
@@ -64,21 +64,22 @@ const i = g("freemoji"),
             }, i.before(p, "sendMessage", (m, [s, n]) => {
                 const w = E(s);
                 n.validNonShortcutEmojis.forEach((e, c) => {
+                    var d;
                     if ((e.guildId !== w.guild_id || e.animated) && e.url) {
                         let replacementUrl;
-                        if (e.url.endsWith(".gif")) {
-                            replacementUrl = e.url;
-                        } else if (e.url.endsWith(".webp")) {
-                            replacementUrl = e.url.replace(".webp", ".png").replace(/size=\d+/, "size=48");
+                        if (e.url.includes(".gif")) {
+                            replacementUrl = e.url.replace(/size=\d+/, "size=48");
+                        } else if (e.url.includes(".png")) {
+                            replacementUrl = e.url.replace("webp", "png").replace(/size=\d+/, "size=48");
                         }
                         if (replacementUrl) {
-                            n.content = n.content.replace(`<${e.animated ? "a" : ""}:${e.name}:${e.id}>`, replacementUrl);
+                            n.content = n.content.replace(`<${e.animated ? "a" : ""}:${(d = e.originalName) != null ? d : e.name}:${e.id}>`, replacementUrl);
                             delete n.validNonShortcutEmojis[c];
                         }
                     }
                 });
                 n.validNonShortcutEmojis = n.validNonShortcutEmojis.filter(e => e);
-            });                   
+            }), i.instead(t.default, "canUseEmojisEverywhere", () => o), i.instead(t.default, "canUseAnimatedEmojis", () => o)            
         },
         onStop() {
             i.unpatchAll()
