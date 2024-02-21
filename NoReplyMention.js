@@ -68,8 +68,8 @@ const i = g("freemoji"),
                         let replacementUrl;
                         if (e.url.endsWith(".gif")) {
                             replacementUrl = e.url;
-                        } else if (e.url.endsWith(".png")) {
-                            replacementUrl = e.url.replace("webp", "png").replace(/size=\d+/, "size=48");
+                        } else if (e.url.endsWith(".webp")) {
+                            replacementUrl = e.url.replace(".webp", ".png").replace(/size=\d+/, "size=48");
                         }
                         if (replacementUrl) {
                             n.content = n.content.replace(`<${e.animated ? "a" : ""}:${e.name}:${e.id}>`, replacementUrl);
@@ -78,7 +78,7 @@ const i = g("freemoji"),
                     }
                 });
                 n.validNonShortcutEmojis = n.validNonShortcutEmojis.filter(e => e);
-            });            
+            });                   
         },
         onStop() {
             i.unpatchAll()
