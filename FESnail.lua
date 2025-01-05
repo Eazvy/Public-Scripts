@@ -31,7 +31,7 @@ _G.Snail_Config = {
 
 	--// Offsets
 	Offset = CFrame.new(0,3,0),
-	TunnelOffset = CFrame.new(0,-6,0), -- This is added to the Offset
+	TunnelOffset = CFrame.new(0,-10,0), -- This is added to the Offset
 
 	--// Control
 	Teleport = Enum.KeyCode.E,
@@ -89,7 +89,6 @@ _G.Snail_Config = {
 
 ------------------------------
 if _G.Snail_Ran then return end
-
 if not _G.Snail_Config  then
 	return warn("[SNAIL SCRIPT] Please run the Snail script loader instead, thanks.")
 end
