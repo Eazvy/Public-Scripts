@@ -35,7 +35,7 @@ _G.Snail_Config = {
 
 	--// Control
 	Teleport = Enum.KeyCode.E,
-	Tunnel = Enum.KeyCode.Q,
+	Tunnel = Enum.KeyCode.Z,
 	ResetCamera = Enum.KeyCode.R,
 
 	TunnelIsToggle = true,
@@ -45,7 +45,7 @@ _G.Snail_Config = {
 
 	--// Animations
 	Enabled = true, -- If disabled, the script will not run after death
-	Sounds = true,
+	Sounds = false,
 
 	--// Sounds
 	Audios = {
