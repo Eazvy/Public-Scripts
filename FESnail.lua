@@ -26,11 +26,11 @@
 ]]
 
 _G.Snail_Config = {
-	Speed = 0.4,
+	Speed = 0.6,
 	TunnelSpeed = 1,
 
 	--// Offsets
-	Offset = CFrame.new(0,3,0),
+	Offset = CFrame.new(0,-10,0),
 	TunnelOffset = CFrame.new(0,-10,0), -- This is added to the Offset
 
 	--// Control
