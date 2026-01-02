@@ -48,96 +48,6 @@ elseif queue_on_teleport and not getgenv().AlreadyLoaded then
 	queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Pixeluted/adoniscries/main/Source.lua',true))()\nloadstring(game:HttpGet('https://raw.githubusercontent.com/Eazvy/public-scripts/main/Universal_Animations_Emotes.lua'))()")
 end 
 
-
--- local cursor = ''
--- local emotesTable = {}
-
--- local HttpService = game:GetService("HttpService")
--- local httprequest = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
--- local HttpGet = game.HttpGet
--- local JSONDecode = HttpService.JSONDecode
--- local tableinsert = table.insert
--- local stringformat = string.format
-
--- local response;
--- local requestString;
-
--- -- Fetch and parse JSON from URL
--- local function getJson(url)
---     local response = httprequest({ Url = url })
---     return HttpService:JSONDecode(response.Body)
--- end
-
--- -- Recursive function to collect all emotes using nextPageCursor
--- local function thingy()
---     local categoryData = getJson("https://catalog.roblox.com/v1/categories")
---     local subcategoryData = getJson("https://catalog.roblox.com/v1/subcategories")
-
---     local category = categoryData.AvatarAnimations
---     local subcategory = subcategoryData.EmoteAnimations
-
---     local url = string.format(
---         "https://catalog.roblox.com/v1/search/items/details?Category=%s&Subcategory=%s&IncludeNotForSale=true&Limit=30",
---         category,
---         subcategory
---     )
-
---     if cursor ~= "" then
---         url ..= "&Cursor=" .. cursor
---     end
-
---     local response = getJson(url)
---     cursor = response.nextPageCursor
---     for _, item in ipairs(response.data) do
---         table.insert(emotesTable, { item.name, item.id })
---     end
-
---     if cursor ~= nil then
---         thingy()
--- 	end
--- end
-
--- thingy()
-
--- table.sort(emotesTable, function(a, b)
---    return a[1] < b[1]
--- end)
-
--- local ReturnedWrong;
--- function FixString(text)
---    local Converted = string.split(text, "-")[1]
---    if Converted then
---        text = string.split(text, "-")[1]
---    end
---    Converted = string.sub(text,string.len(text))
---    if Converted == " " then
---        text = text:sub(1, #text - 1)
---        ReturnedWrong = FixString(text)
---    else
---        return text
---    end
--- end
-
--- local RobloxEmotes = {}
--- local EmoteChoices = {}
--- local RealNames = {}
-
--- for _, emote in ipairs(emotesTable) do
-    
---    if FixString(emote[1]) == nil then
---        RobloxEmotes[ReturnedWrong] = {emote[2]}
---        table.insert(EmoteChoices, ReturnedWrong)
---    else
---        RobloxEmotes[FixString(emote[1])] = {emote[2]}
---        table.insert(EmoteChoices, FixString(emote[1]))
---    end
-    
---    RealNames[emote[1]] = {emote[2]}
--- end
-
-
-
-
 local vu = game:GetService("VirtualUser")
 game:GetService("Players").LocalPlayer.Idled:connect(function()
     vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
@@ -219,9 +129,6 @@ if readfile and isfile("Eazvy-Hub/Animations_Settings.txt") then
 		UpdateFile()
 	end
 end 
---Animations IDS:
---Idle, Idle2, Walk, Run, Jump, CLimb, Fall Swim, SwimIdle
-
 
 local httprequest = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
 local httpservice = game:GetService('HttpService')
@@ -618,48 +525,7 @@ local Animations = {
  ['Wicked "Dancing Through Life"'] = {Idle=92849173543269,Idle2=132238900951109,Idle3=87867222929430,Walk=73718308412641,Run=135515454877967,Jump=78508480717326,Climb=129447497744818,Fall=78147885297412,Swim=110657013921774,SwimIdle=129183123083281,Weight=9,Weight2=1},
  Unboxed = {Idle=98281136301627,Idle2=138183121662404,Idle3=133117300343405,Walk=90478085024465,Run=134824450619865,Jump=121454505477205,Climb=121145883950231,Fall=94788218468396,Swim=105962919001086,SwimIdle=129126268464847,Weight=9,Weight2=1}
 }
-	
--- local InsertService = game:GetService("InsertService")
--- local cc = 0
 
--- for name, ids in pairs(RealNames) do
---     if not Emotes[name] and cc <= 149 then
---         local success, asset = pcall(function()
---             return InsertService:LoadAsset(ids[1])
---         end)
-
---         if success and asset then
--- 			print(asset)
---             local animation = asset:FindFirstChildWhichIsA("Animation", true)
--- 			print(animation.AnimationId)
---             if animation then
---                 local animId = animation.AnimationId:match("%d+")
---                 if animId then
---                     Emotes[name] = animId
---                     cc = cc + 1
---                 end
---             end
---         end
---     end
--- end
-
-
-
--- for i,v in pairs(Emotes) do --emotes = 157 -- realname = 150 
---    if cc <= 149 then 
-       
---    end 
---    cc = cc + 1 
--- end 
- 
-
-
-
--- for i,v in pairs(RealNames) do 
---    if not Emotes[i] then 
---       print(i,v[1])
---    end 
--- end 
 
 local ExcludedEmotes = {
 	"/e dance3", 
@@ -812,27 +678,6 @@ local function RefreshAnims()
 		v:AdjustSpeed(Settings.AnimationSpeed)
 	end
 end
-
-   
--- local function RefreshAnims()
--- 	do 
--- 		if not getgenv().AlreadyLoaded then return end 
--- 		repeat wait() until game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Animate") and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game:GetService("Players").LocalPlayer.Character.Humanoid:FindFirstChild("Animator")
--- 		local Animator = game:GetService("Players").LocalPlayer.Character:WaitForChild("Animate")
--- 		Animator.Disabled = true 
--- 		for i,v in ipairs(game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks()) do
--- 			v:AdjustSpeed(Settings.AnimationSpeed)
--- 			v:Stop()
--- 		end
--- 		Animator.Disabled = false 
--- 	end
--- end
-   
-   
-   
-   
-   
-   
    
 local function PlayAnimationBody(id1, id2, id3, id4, id5, id6, id7, id8, id9, id10, weight, weight2)
 	do 
@@ -1106,28 +951,6 @@ if game.TextChatService:FindFirstChild("TextChannels") and not getgenv().Already
 		if Settings.Player and textSource == Settings.Player.Name and Settings.CopyMovement then 
 			game.TextChatService.TextChannels.RBXGeneral:SendAsync(text)
 		end 
-		-- if textSource == game.Players.LocalPlayer.Name and Settings.Chat and text:match(Settings.EmotePrefix) then 
-		-- 	local str = string.gsub(text, Settings.EmotePrefix .. " ", "")
-		-- 	local Emote_Name = GetEmote(str)
-		-- 	if Settings.Chat and Emote_Name then 
-		-- 		Settings.LastEmote = Emote_Name
-		-- 		_G.LoadAnim:Stop()
-		-- 		RefreshAnims()
-		-- 		PlayEmote(Emote_Name)
-		-- 		Status:Set("Selected Emote: " .. Settings.LastEmote .. " // Speed: " .. tostring(Settings.EmoteSpeed) .. " // Time Position: " .. GetTimePosition() .. " // Looped: " .. GetLooped())
-		-- 		return
-		-- 	end
-		-- end 
-		-- if textSource == game.Players.LocalPlayer.Name and Settings.Animate and text:match(Settings.AnimationPrefix) then 
-		-- 	local str = string.gsub(text, Settings.AnimationPrefix.." ", "")
-		-- 	local Animation_Name = GetAnimation(str)
-		-- 	if Settings.Animate and Animation_Name then 
-		-- 		PlayAnimationBody(Animations[Animation_Name].Idle, Animations[Animation_Name].Idle2, Animations[Animation_Name].Idle3, Animations[Animation_Name].Walk, Animations[Animation_Name].Run, Animations[Animation_Name].Jump, Animations[Animation_Name].Climb, Animations[Animation_Name].Fall, Animations[Animation_Name].Swim, Animations[Animation_Name].SwimIdle, Animations[Animation_Name].Weight, Animations[Animation_Name].Weight2)
-		-- 		AStatus:Set("Current Animation: " .. Settings.SelectedAnimation or "" .. " // Speed: " .. tostring(Settings.AnimationSpeed or "") .. " // Frozen: " .. Settings.FreezeAnimation)
-		-- 		RefreshAnims()
-		-- 		return
-		-- 	end
-		-- end
 	end)
 end
 
@@ -1142,57 +965,11 @@ if game.ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents") and not 
 		if Settings.Player and textSource == Settings.Player.Name and Settings.CopyMovement then 
 			game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(text, "All")
 		end 
-		-- if textSource == game.Players.LocalPlayer.Name and Settings.Chat then
-		-- 	if text:match(Settings.EmotePrefix) and Settings.Chat then
-		-- 		local str = string.gsub(text, Settings.EmotePrefix .. " ", "")
-		-- 		local Emote_Name = GetEmote(str)
-		-- 		if Settings.Chat and Emote_Name then
-		-- 			Settings.LastEmote = Emote_Name
-		-- 			PlayEmote(Emote_Name)
-		-- 			Status:Set("Current Emote: " .. Settings.LastEmote .. " // Speed: " .. tostring(Settings.EmoteSpeed) .. " // Time Position: " .. GetTimePosition() .. " // Looped: " .. GetLooped())
-		-- 			return
-		-- 		end
-		-- 	elseif text:match(Settings.AnimationPrefix) and Settings.Animate then
-		-- 		local str = string.gsub(text, Settings.AnimationPrefix .. " ", "")
-		-- 		local Animation_Name = GetAnimation(str)
-		-- 		if Settings.Animate and Animation_Name then
-		-- 			Settings.SelectedAnimation = Animation_Name
-		-- 			PlayAnimationBody(Animations[Animation_Name].Idle, Animations[Animation_Name].Idle2, Animations[Animation_Name].Idle3, Animations[Animation_Name].Walk, Animations[Animation_Name].Run, Animations[Animation_Name].Jump, Animations[Animation_Name].Climb, Animations[Animation_Name].Fall, Animations[Animation_Name].Swim, Animations[Animation_Name].SwimIdle, Animations[Animation_Name].Weight, Animations[Animation_Name].Weight2)
-		-- 			AStatus:Set("Current Animation: " .. Settings.SelectedAnimation .. " // Speed: " .. tostring(Settings.AnimationSpeed))
-		-- 			RefreshAnims()
-		-- 			return
-		-- 		end
-		-- 	end
-		-- end
 	end)
 end
 
 
--- local oldnamecall; oldnamecall = hookmetamethod(game, "__namecall", function(self, ...)
---    local args = {...}
---    if self.Name == "SayMessageRequest" then
---        if args[1]:match(Settings.AnimationPrefix) and Settings.Animate then
--- 			local str = string.gsub(args[1], Settings.AnimationPrefix.." ", "")
--- 			local Animation_Name = GetAnimation(str)
--- 			if Settings.Animate and Animation_Name then 
--- 				Settings.SelectedAnimation = Animation_Name
--- 				PlayAnimationBody(Animations[Animation_Name].Idle, Animations[Animation_Name].Idle2, Animations[Animation_Name].Idle3, Animations[Animation_Name].Walk, Animations[Animation_Name].Run, Animations[Animation_Name].Jump, Animations[Animation_Name].Climb, Animations[Animation_Name].Fall, Animations[Animation_Name].Swim, Animations[Animation_Name].SwimIdle, Animations[Animation_Name].Weight, Animations[Animation_Name].Weight2)
--- 				AStatus:Set("Current Animation: " .. Settings.SelectedAnimation .. " // Speed: " .. tostring(Settings.AnimationSpeed))
--- 				RefreshAnims()
--- 				return
--- 			end
--- 		elseif args[1]:match(Settings.EmotePrefix) and Settings.Chat then 
--- 			local str = string.gsub(args[1], Settings.EmotePrefix .. " ", "")
--- 			local Emote_Name = GetEmote(str)
--- 			if Settings.Animate and Emote_Name then 
--- 				PlayEmote(Emote_Name)
--- 				Status:Set("Current Emote: " .. Settings.LastEmote .. " // Speed: " .. tostring(Settings.EmoteSpeed) .. " // Time Position: " .. GetTimePosition() .. " // Looped: " .. GetLooped())
--- 				return
--- 			end
--- 		end
---    end
---    return oldnamecall(self, unpack(args))
--- end)
+
 
 
 
@@ -3021,7 +2798,7 @@ local LocalPlayer = Players.LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 
 UIS.InputBegan:Connect(function(input, GPE)
-	if input.UserInputType == Enum.UserInputType.MouseButton1 and (UIS:IsKeyDown(Enum.KeyCode.LeftControl) or UIS:IsKeyDown(Enum.KeyCode.Meta)) then
+	if input.UserInputType == Enum.UserInputType.MouseButton1 and (UIS:IsKeyDown(Enum.KeyCode.LeftControl) or UIS:IsKeyDown(Enum.KeyCode.LeftMeta)) then
 		local target = Mouse.Target
 
 		-- Player selection logic
@@ -3646,25 +3423,6 @@ if game:GetService("Players").LocalPlayer.Character and game:GetService("Players
 							Animate.swim:FindFirstChildOfClass("Animation").AnimationId,
 							Animate.swimidle:FindFirstChildOfClass("Animation").AnimationId
 						}
-						-- local Animator = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Animator
-						-- local AnimTracks = Settings.Player.Character:FindFirstChildOfClass("Humanoid").Animator:GetPlayingAnimationTracks()
-						-- for _,v in pairs(AnimTracks) do 
-						-- 	_G.LoadAnim = Animator:LoadAnimation(v.Animation)
-						-- 	_G.LoadAnim.TimePosition = v.TimePosition  --- _G.LoadAnim.TimePosition + .50
-						-- 	_G.LoadAnim:Play(0.100000001, v.WeightCurrent, v.Speed)
-						-- 	_G.LoadAnim.Priority = Enum.AnimationPriority.Action 
-						-- 	-- _G.LoadAnim:AdjustSpeed(v.Speed)
-						-- end	
-						-- task.spawn(function()
-						-- 	_G.LoadAnim.Stopped:Wait()
-						-- 	if _G.LoadAnim then 
-						-- 		_G.LoadAnim:Stop()
-						-- 	end
-						-- end)
-						-- Settings.Player.Character.Humanoid.Running:Wait()
-						-- if _G.LoadAnim then 
-						-- 	_G.LoadAnim:Stop()
-						-- end
 						Animate.idle.Animation1.AnimationId = EnemyAnimate.idle.Animation1.AnimationId or originalAnimations[1]
 						Animate.idle.Animation2.AnimationId = EnemyAnimate.idle.Animation2.AnimationId or originalAnimations[2]
 						Animate.walk:FindFirstChildOfClass("Animation").AnimationId = EnemyAnimate.walk:FindFirstChildOfClass("Animation").AnimationId or originalAnimations[3]
@@ -4405,6 +4163,61 @@ if game:GetService("Players").LocalPlayer.Character and game:GetService("Players
         Settings.SelectedAnimation = "Custom"
 	end})
 
+	local RandomIdle = false
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local RandomIdle = false
+
+Custom:AddToggle({
+	Name = "Random Idle Animation",
+	Callback = function(t)
+		RandomIdle = t
+
+		task.spawn(function()
+			repeat task.wait() until
+				player.Character
+				and player.Character:FindFirstChild("Animate")
+
+			local Animate = player.Character.Animate
+
+			while RandomIdle do
+				
+
+				local rand = GetRandomAnimation(Animations)
+
+				local id1 = rand.Idle
+				local id2 = rand.Idle2
+				local id3 = rand.Idle3
+
+				local weight1 = rand.Weight or 1
+				local weight2 = rand.Weight2 or 1
+
+				-- Idle animations
+				if Animate:FindFirstChild("idle") then
+					Animate.idle.Animation1.AnimationId = URL .. id1
+					Animate.idle.Animation1.Weight.Value = tostring(weight1)
+
+					Animate.idle.Animation2.AnimationId = URL .. id2
+					Animate.idle.Animation2.Weight.Value = tostring(weight2)
+				end
+
+				-- Optional pose / idle3
+				if Animate:FindFirstChild("pose") and id3 then
+					local anim = Animate.pose:FindFirstChildOfClass("Animation")
+					if anim then
+						anim.AnimationId = URL .. id3
+					end
+				end
+				task.wait(3)
+			end
+		end)
+	end
+})
+
+
+
 	Custom:AddButton({
 		Name="Select Random Emote Animations",
 		Callback=function()
@@ -4664,9 +4477,6 @@ game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid
 				RefreshAnims()
 			end
 		end 
-		-- if _G.LoadAnim and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Animate") and not game:GetService("Players").LocalPlayer.Character.Animate.Disabled and not Settings.FreezeEmote and not Settings.PlayAlways then 
-		-- 	_G.LoadAnim:Stop()
-		-- end
 	end
 end)
 
@@ -4771,9 +4581,6 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function(chr)
 					RefreshAnims()
 				end
 			end 
-			-- if _G.LoadAnim and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Animate") and not game:GetService("Players").LocalPlayer.Character.Animate.Disabled and not Settings.FreezeEmote and not Settings.PlayAlways then 
-			-- 	_G.LoadAnim:Stop()
-			-- end
 		end
 	end)
 end)
